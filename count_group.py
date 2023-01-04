@@ -21,5 +21,5 @@ class count:
                 cnt+=1
         return cnt
 if __name__ == "__main__":
-    print('總共有'+count().count_group()+'組')
-    print('已繳交期中報告有'+count().check_interm_report()+'組')
+    print(f'總共有{count().count_group()}組')
+    print(f'已繳交期中報告有{count().check_interm_report()}組')
