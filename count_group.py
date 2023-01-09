@@ -32,6 +32,20 @@ class count:
                 print(f"group_id:{group['group_id']} group_leader:{group['leader']['name']} advisor:{group['advisor']}尚未評分")
         return pro_list
 
+    def has_already_set_score(self):
+        groups = self.group_collection.find()
+        for group in groups:
+            if group["leader"]["last_score"] != '00':
+                print(f"group_id:{group['group_id']} group_leader:{group['leader']['name']} advisor:{group['advisor']}已評分")
+        print('done!')
+
+    def has_not_already_set_score(self):
+        groups = self.group_collection.find()
+        for group in groups:
+            if group["leader"]["last_score"] == '00':
+                print(f"group_id:{group['group_id']} group_leader:{group['leader']['name']} advisor:{group['advisor']}尚未評分")
+        print('done!')
+
     def find_no_group_pro(self):
         groups = self.group_collection.find()
         pro_list=['李士修', '鄭瑞清', '李仁貴', '邱弘緯', '黃育賢', '陳建中', '曾恕銘', '李文達', '林信標', '范育成', '王多柏', '劉玉蓀', '余政杰', '林鼎然', '高立人', '黃士嘉', '胡心卉', '蔡偉和', '段裘慶', '孫卓勳', '曾德樟', '陳晏笙', '王紳', '譚巽言', '楊濠瞬', '潘孟鉉', '賴冠廷', '黃柏鈞', '李昭賢', '鍾明桉', '陳維昌', '曾柏軒']
@@ -43,7 +57,7 @@ class count:
 if __name__ == "__main__":
     choice = 'start'
     while choice != "Q":
-        print("1.count_group  2.check_interm_report  3.check_group_score 4.find_no_group_pro")
+        print("1.count_group  2.check_interm_report  3.check_group_score 4.find_no_group_pro 5.has_already_set_score 6.has_not_already_set_score")
         choice = input("執行哪個功能?")
         if choice == '1':
             print(f"總共有{count().count_group()}組")
@@ -53,3 +67,7 @@ if __name__ == "__main__":
             print(f"有以下教授尚未評分{count().check_group_score()}")
         elif choice == '4':
             print(f"有以下教授沒有專題生{count().find_no_group_pro()}")
+        elif choice == '5':
+            count().has_already_set_score()
+        elif choice == '6':
+            count().has_not_already_set_score()
