@@ -23,11 +23,12 @@ class count:
 
     def check_group_score(self):
         groups = self.group_collection.find()
-        pro_list=['李士修', '鄭瑞清', '李仁貴', '邱弘緯', '黃育賢', '陳建中', '曾恕銘', '李文達', '林信標', '范育成', '王多柏', '劉玉蓀', '余政杰', '林鼎然', '高立人', '黃士嘉', '胡心卉', '蔡偉和', '段裘慶', '孫卓勳', '曾德樟', '陳晏笙', '王紳', '譚巽言', '楊濠瞬', '潘孟鉉', '賴冠廷', '黃柏鈞', '李昭賢', '鍾明桉', '陳維昌', '曾柏軒']
+        pro_list=[]
         for group in groups:
             if group["leader"]["last_score"] != '00':
-                pro_list.remove(group["advisor"])
-            else:
+                print(f"group_id:{group['group_id']} group_leader:{group['leader']['name']} advisor:{group['advisor']}已評分")
+            elif group['advisor'] not in pro_list:
+                pro_list.append(group['advisor'])
                 print(f"group_id:{group['group_id']} group_leader:{group['leader']['name']} advisor:{group['advisor']}尚未評分")
         return pro_list
 
