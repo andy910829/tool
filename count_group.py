@@ -53,10 +53,17 @@ class count:
                 pro_list.remove(group["advisor"])
         return pro_list
 
+    def find_group_info(self):
+        group_id = input("輸入小組ID:")
+        group = self.group_collection.find_one({"group_id":group_id})
+        print(f"小組ID{group['group_id']}")
+        print(f"小組組長{group['leader']['student_id']} {group['leader']['name']} 小組組長分數{group['leader']['last_score']}")
+        for member in group['member']:
+            print(f"姓名：{member['name']} 學號：{member['student_id']} 分數：{member['last_score']}")
+
 if __name__ == "__main__":
     choice = 'start'
     while choice != "Q":
-        print("1.count_group  2.check_interm_report  3.check_group_score 4.find_no_group_pro 5.has_already_set_score 6.has_not_already_set_score")
         choice = input("執行哪個功能?")
         if choice == '1':
             print(f"總共有{count().count_group()}組")
@@ -70,3 +77,5 @@ if __name__ == "__main__":
             count().has_already_set_score()
         elif choice == '6':
             count().has_not_already_set_score()
+        elif choice == '7':
+            count().find_group_info()
