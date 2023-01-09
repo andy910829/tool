@@ -31,9 +31,9 @@ class count:
 
     def has_already_set_score(self):
         groups = self.group_collection.find()
-        for group in groups:
-            if group["leader"]["last_score"] != '00':
-                with open('has_score.txt','w') as f:
+        with open('has_score.txt','w') as f:
+            for group in groups:
+                if group["leader"]["last_score"] != '00':
                     f.write(f"group_id:{group['group_id']} group_leader:{group['leader']['name']} advisor:{group['advisor']}已評分")
         print('done!')
 
