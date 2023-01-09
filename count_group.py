@@ -34,7 +34,7 @@ class count:
         with open('has_score.txt','w') as f:
             for group in groups:
                 if group["leader"]["last_score"] != '00':
-                    f.write(f"group_id:{group['group_id']} group_leader:{group['leader']['name']} advisor:{group['advisor']}已評分")
+                    f.write(f"group_id:{group['group_id']} group_leader:{group['leader']['name']} advisor:{group['advisor']}已評分\n")
         print('done!')
 
     def has_not_already_set_score(self):
