@@ -25,25 +25,24 @@ class count:
         groups = self.group_collection.find()
         pro_list=[]
         for group in groups:
-            if group["leader"]["last_score"] != '00':
-                print(f"group_id:{group['group_id']} group_leader:{group['leader']['name']} advisor:{group['advisor']}已評分")
-            elif group['advisor'] not in pro_list:
+            if group["leader"]["last_score"] == '00' and group['advisor'] not in pro_list:
                 pro_list.append(group['advisor'])
-                print(f"group_id:{group['group_id']} group_leader:{group['leader']['name']} advisor:{group['advisor']}尚未評分")
         return pro_list
 
     def has_already_set_score(self):
         groups = self.group_collection.find()
         for group in groups:
             if group["leader"]["last_score"] != '00':
-                print(f"group_id:{group['group_id']} group_leader:{group['leader']['name']} advisor:{group['advisor']}已評分")
+                with open('has_score.txt','w') as f:
+                    f.write(f"group_id:{group['group_id']} group_leader:{group['leader']['name']} advisor:{group['advisor']}已評分")
         print('done!')
 
     def has_not_already_set_score(self):
         groups = self.group_collection.find()
-        for group in groups:
-            if group["leader"]["last_score"] == '00':
-                print(f"group_id:{group['group_id']} group_leader:{group['leader']['name']} advisor:{group['advisor']}尚未評分")
+        with open('has_no_score.txt','w') as f:
+            for group in groups:
+                if group["leader"]["last_score"] == '00':
+                    f.write(f"group_id:{group['group_id']} group_leader:{group['leader']['name']} advisor:{group['advisor']}尚未評分\n")
         print('done!')
 
     def find_no_group_pro(self):
