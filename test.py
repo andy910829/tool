@@ -24,6 +24,10 @@ class tool:
         self.collection.update_one({"account":"mspan@ntut.edu.tw"},{"$set":pro_info})
         print("change pro info done!!")
 
+    def update(self):
+        user = self.collection.find_one({"name":"蔡窮霖"})
+        user["name"] = "蔡穹霖"
+        self.collection.update_one({"name":"蔡窮霖"},{"$set":user})
+
 if __name__ == "__main__":
-    tool().insert_admin()
-    tool().update_pro()
+    tool().update()
