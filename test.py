@@ -28,6 +28,24 @@ class tool:
                 if user['user_identity'] == 'group_leader':
                     self.group_collection.update_one({"group_id": user_id}, {"$set": {"group_leader.name": user['name']}})
 
-if __name__ == '__main__':
-    tool().main()
+    def check_judge(self):
+        for group in self.group_collection.find():
+            for group_judge in group['judge']:
+                judge = self.user_collection.find_one({"name":group_judge['name']})
+                if group['group_id'] not in judge['groups']:
+                    print(group['group_id'], judge['name'])
 
+    def check_group(self):
+        for user in self.group_collection.find({"acedemic_year":"112"}):
+            check = False
+            group = self.group_collection.find_one({"group_id":user['group_id']})
+            for member in group['member']:
+                if member['student_id'] == user['student_id']:
+                    check = True
+                    break
+            if not check:
+                print(user['group_id'], user['student_id'])
+
+
+if __name__ == '__main__':
+    tool().check_group()
