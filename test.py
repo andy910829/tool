@@ -42,16 +42,19 @@ class tool:
     def check_group(self):
         for user in self.user_collection.find({"acedemic_year": "112"}):
             cnt = 0
-            group = self.group_collection.find_one({"group_id":user['group_id']})
             try:
-                for member in group['member']:
-                    if member['student_id'] == user['student_id']:
-                        cnt += 1
-                if cnt > 1:
-                    print(user['group_id'], user['student_id'])
+                group = self.group_collection.find_one({"group_id":user['group_id']})
+                try:
+                    for member in group['member']:
+                        if member['student_id'] == user['student_id']:
+                            cnt += 1
+                    if cnt > 1:
+                        print(user['group_id'], user['student_id'])
+                except:
+                    print(user['group_id'])
+                    print(group)
             except:
-                print(user['group_id'])
-                print(group)
+                print(user)
 
 
 if __name__ == '__main__':
