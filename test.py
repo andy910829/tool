@@ -37,13 +37,13 @@ class tool:
 
     def check_group(self):
         for user in self.group_collection.find({"acedemic_year":"112"}):
-            check = False
+            cnt = 0
             group = self.group_collection.find_one({"group_id":user['group_id']})
             for member in group['member']:
                 if member['student_id'] == user['student_id']:
-                    check = True
+                    cnt+=1
                     break
-            if not check:
+            if cnt>1:
                 print(user['group_id'], user['student_id'])
 
 
